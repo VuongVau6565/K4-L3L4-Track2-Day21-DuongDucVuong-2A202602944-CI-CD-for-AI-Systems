@@ -17,6 +17,19 @@ Bạn có thể sử dụng **một trong ba** cloud provider sau. Các hướng
 | Cloud SDK Python | `google-cloud-storage` | `boto3` | `azure-storage-blob` |
 | Credentials | Service Account JSON | Access Key / IAM Role | Service Principal / Connection String |
 
+### AWS CLI: cấu hình tương ứng với mã nguồn repo này
+
+Nếu chọn AWS, không dùng các lệnh GCP hoặc các ví dụ `STORAGE_CREDENTIALS`/SSH ở phần
+dưới đây. Mã nguồn hiện dùng `dvc[s3]`, S3 qua `boto3`, GitHub Actions OIDC để lấy
+credentials tạm thời và Systems Manager Run Command để restart service trên EC2. Tạo
+GitHub Secrets `AWS_ROLE_ARN`, `ARTIFACT_BUCKET` và `SERVER_INSTANCE_ID`; đặt region ở
+`env.AWS_REGION` trong `.github/workflows/cicd.yml`. Role OIDC cần quyền tối thiểu để
+đọc prefix `dvc/`, ghi object `artifacts/current/model.joblib` và gửi/đọc kết quả SSM
+command trên instance đích. EC2 cần instance profile có `AmazonSSMManagedInstanceCore`
+và quyền `s3:GetObject` chỉ với object model. Không cần lưu AWS access key hoặc SSH
+private key trong GitHub Secrets. Các lệnh GCP/SSH ở phần dưới là ví dụ cho GCP; không
+chạy nguyên các lệnh đó khi đã chọn cấu hình AWS này.
+
 ---
 
 ## 2.1 Tạo Cloud Storage Bucket

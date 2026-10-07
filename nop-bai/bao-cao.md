@@ -27,13 +27,13 @@ HƯỚNG DẪN - đọc rồi XÓA TOÀN BỘ các khối chú thích này sau k
 
 | Lần chạy | n_estimators | learning_rate | max_depth | f1_score | accuracy |
 |---|---|---|---|---|---|
-| 1 | ___ | ___ | ___ | ___ | ___ |
-| 2 | ___ | ___ | ___ | ___ | ___ |
-| 3 | ___ | ___ | ___ | ___ | ___ |
+| 1 | 100 | 0.1 | 3 | 0.7109 | 0.8780 |
+| 2 | 50 | 0.05 | 2 | 0.6051 | 0.8460 |
+| 3 | 200 | 0.1 | 5 | 0.7149 | 0.8740 |
 
-**Bộ siêu tham số đã chọn:** `n_estimators=___`, `learning_rate=___`, `max_depth=___`.
+**Bộ siêu tham số đã chọn:** `n_estimators=200`, `learning_rate=0.1`, `max_depth=5`.
 
-**Lý do:** ___
+**Lý do:** Lần 3 có F1 0.7149, cao nhất và vượt ngưỡng 0.65; lần 1 đạt 0.7109, còn lần 2 chỉ đạt 0.6051 nên không qua ngưỡng. Accuracy cao nhất thuộc lần 1 (0.8780), không phải lần 3 (0.8740). Chênh lệch accuracy nhỏ nhưng F1 cho lớp dương cho thấy khả năng nhận diện nhóm thiểu số khác nhau, vì vậy tôi chọn theo F1. Lần 3 tăng số cây từ 100 lên 200, giữ learning_rate ở 0.1 và tăng max_depth từ 3 lên 5. Lần 2 đồng thời giảm cả số cây, learning_rate và độ sâu nên kết quả không thể tách riêng ảnh hưởng từng tham số. Thí nghiệm gợi ý mô hình sâu hơn với nhiều cây đạt F1 nhỉnh hơn trên holdout; muốn kết luận rõ về đánh đổi learning_rate và n_estimators thì cần giữ các tham số khác cố định.
 
 <!--
 Trả lời trong phần Lý do:
